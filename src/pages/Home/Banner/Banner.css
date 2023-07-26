@@ -1,0 +1,10 @@
+.carousel .control-dots .dot{
+    color: yellow;
+}
+.dot{
+    background-color: yellow;
+}
+.thumbs-wrapper{
+    display: flex;
+    justify-content: center;
+}
