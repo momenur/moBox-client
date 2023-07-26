@@ -1,14 +1,14 @@
 import loginImg from '../../assets/login/login.gif'
-const Register = () => {
+const Login = () => {
     return (
         <div className="bg-base-200">
-            <div className="hero min-h-screen md:w-[90%] mx-auto">
+            <div className="hero min-h-screen md:w-[70%] mx-auto">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className=''>
                         <img className='md:rounded-lg' src={loginImg} alt="register images" />
                     </div>
                     <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl">
-                        <h1 className=' ps-8 mt-6 text-3xl font-semibold'>Please Register!</h1>
+                        <h1 className=' ps-8 mt-6 text-3xl font-semibold'>Please Login!</h1>
                         <div className="card-body">
                             <div className="form-control">
                                 <label className="label">
@@ -27,6 +27,9 @@ const Register = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="text" placeholder="password" className="input input-bordered" />
+                                <label className="label">
+                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                </label>
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
@@ -39,4 +42,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
