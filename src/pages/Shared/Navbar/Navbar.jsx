@@ -1,11 +1,35 @@
 import { Link } from 'react-router-dom';
 import avater from '../../../assets/navbar/avater.avif'
+import { useContext } from 'react';
+import { AuthContext } from '../../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Sign Out Successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        })
+        .catch(error => console.log(error))
+    }
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="register">Register</Link></li>
-        <li><Link to="login">Login</Link></li>
+        <li><Link to="/order">Order</Link></li>
+
+        {
+            user ? <>
+            <li onClick={handleLogOut} className='text-rose-500 font-semibold'><Link>Sign Out</Link></li>
+            </> : <>
+                <li><Link to="register">Sign Up</Link></li>
+                <li><Link to="login">Sign In</Link></li>
+            </>
+        }
     </>
     return (
         <div className="">
