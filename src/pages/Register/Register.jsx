@@ -6,31 +6,46 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const {createUser, updateUserProfile} = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate()
 
     const onSubmit = data => {
         console.log(data)
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            updateUserProfile(data.name, data.phone)
-            .then(() => {
-                reset();
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.phone)
+                    .then(() => {
+                        const saveUser = {name: data.name, email: data.email, role: "user"}
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': "application/json"
+                            },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User Sign Up Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    navigate("/")
+                                }
+                            })
+
+                        reset();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+
             })
-            .catch(error => {
-                console.log(error);
-            })
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'User Sign Up Successfully',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              navigate("/")
-        })
     }
     return (
         <div className="bg-base-200">
@@ -53,8 +68,9 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Phone Number</span>
                                 </label>
-                                <input {...register("phone", { required: true, 
-                                pattern: /^(?:\+88|01)?\d{11}\r?$/
+                                <input {...register("phone", {
+                                    required: true,
+                                    pattern: /^(?:\+88|01)?\d{11}\r?$/
                                 })} type="text" name='phone' placeholder="Your Phone Number" className="input input-bordered" />
                                 {errors.phone?.type === 'required' && <p className="text-rose-500">Phone Number must be required</p>}
                                 {errors.phone?.type === 'pattern' && <p className="text-rose-500">Give a Bangladeshi Phone Number</p>}
@@ -70,8 +86,9 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input {...register("password", { required: true, 
-                                minLength: 6
+                                <input {...register("password", {
+                                    required: true,
+                                    minLength: 6
                                 })} type="password" name='password' placeholder="password" className="input input-bordered" />
                                 {errors.password?.type === 'required' && <p className="text-rose-500">Password must be is required</p>}
                                 {errors.password?.type === 'minLength' && <p className="text-rose-500">Password Must be 6 Character</p>}

@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import useOrders from "../../../hooks/useOrders";
+import Title from "../../../components/Title";
 
 const Order = () => {
     const [order, refetch] = useOrders();
@@ -33,7 +34,8 @@ const Order = () => {
           })
     }
     return (
-        <div className="pt-32 pb-10">
+        <div className="py-10">
+            <Title title="Your orders" subTitle="please check it"></Title>
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>
