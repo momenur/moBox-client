@@ -1,13 +1,41 @@
+import Swal from "sweetalert2";
 import useOrders from "../../../hooks/useOrders";
 
 const Order = () => {
-    const [order] = useOrders();
-    console.log(order);
+    const [order, refetch] = useOrders();
+    const handleDelete = item => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/order/${item._id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then (data => {
+                    if (data.deletedCount > 0){
+                        refetch()
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                          ) 
+                    }
+                })
+            }
+          })
+    }
     return (
         <div className="pt-32 pb-10">
             <div className="overflow-x-auto">
                 <table className="table">
-                    {/* head */}
                     <thead>
                         <tr>
                             <th>
@@ -47,7 +75,7 @@ const Order = () => {
                                     </td>
                                     <td className="font-semibold">${item.price}</td>
                                     <th>
-                                        <button className="btn bg-transparent text-red-500 text-2xl">X</button>
+                                        <button onClick={()=> handleDelete(item)} className="btn bg-transparent text-red-500 text-2xl">X</button>
                                     </th>
                                 </tr>
                             </>)
