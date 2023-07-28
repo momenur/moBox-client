@@ -3,10 +3,11 @@ import loginImg from '../../assets/login/login.gif'
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {createUser, updateUserProfile} = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const onSubmit = data => {
         console.log(data)
@@ -14,6 +15,13 @@ const Register = () => {
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser);
+            updateUserProfile(data.name, data.phone)
+            .then(() => {
+                reset();
+            })
+            .catch(error => {
+                console.log(error);
+            })
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -21,6 +29,7 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 1500
               })
+              navigate("/")
         })
     }
     return (

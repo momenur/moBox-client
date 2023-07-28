@@ -1,30 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import avater from '../../../assets/navbar/avater.avif'
 import { useContext } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import useOrders from '../../../hooks/useOrders';
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [order] = useOrders()
+    const navigate = useNavigate();
     const handleLogOut = () => {
         logOut()
-        .then(() => {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Sign Out Successfully',
-                showConfirmButton: false,
-                timer: 1500
-              })
-        })
-        .catch(error => console.log(error))
+            .then(() => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Sign Out Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate("/login")
+            })
+            .catch(error => console.log(error))
     }
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/order">Order</Link></li>
-
+        <li>
+            <Link to="/order">
+                My Order
+                <div className="badge badge-secondary">+{order.length}</div>
+            </Link>
+        </li>
+        <li><Link to="dashboard/customerOrder">Admin Dashboard</Link></li>
         {
             user ? <>
-            <li onClick={handleLogOut} className='text-rose-500 font-semibold'><Link>Sign Out</Link></li>
+                <li onClick={handleLogOut} className='text-rose-500 font-semibold'><Link>Sign Out</Link></li>
             </> : <>
                 <li><Link to="register">Sign Up</Link></li>
                 <li><Link to="login">Sign In</Link></li>
