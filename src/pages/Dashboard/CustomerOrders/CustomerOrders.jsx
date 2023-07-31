@@ -14,7 +14,7 @@ const CustomerOrders = () => {
     }, [])
     console.log(cusOrter);
     if (loading) {
-        return <div className="h-screen flex justify-center items-center">
+        return <div className="flex items-center justify-center h-screen">
             <FidgetSpinner
                 visible={true}
                 height="80"
@@ -48,34 +48,33 @@ const CustomerOrders = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            cusOrter.map((item, index) => <>
-                                <tr>
-                                    <th>
-                                        <label>
-                                            {index + 1}
-                                        </label>
-                                    </th>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={item.image} alt="Avatar Tailwind CSS Component" />
-                                                </div>
+                            cusOrter.map((item, index) => <tr key={item._id}>
+                                <th>
+                                    <label>
+                                        {index + 1}
+                                    </label>
+                                </th>
+                                <td>
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="w-12 h-12 mask mask-squircle">
+                                                <img src={item.image} alt="Avatar Tailwind CSS Component" />
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        {item.customerName ? <>{item.customerName}</> : <><p className="m-0 p-0">Unknown Customer</p></>
-                                        }
-                                        <br />
-                                        <span className="badge badge-ghost text-rose-500 badge-sm">{item.email}</span>
-                                    </td>
-                                    <td className="font-semibold">${item.price}</td>
-                                    <th>
-                                        <button className="btn bg-transparent text-red-500 text-2xl">X</button>
-                                    </th>
-                                </tr>
-                            </>)
+                                    </div>
+                                </td>
+                                <td>
+                                    {item.customerName ? <>{item.customerName}</> : <><p className="p-0 m-0">Unknown Customer</p></>
+                                    }
+                                    <br />
+                                    <span className="badge badge-ghost text-rose-500 badge-sm">{item.email}</span>
+                                </td>
+                                <td className="font-semibold">${item.price}</td>
+                                <th>
+                                    <button className="text-2xl text-red-500 bg-transparent btn">X</button>
+                                </th>
+                            </tr>
+                            )
                         }
                     </tbody>
                     {/* foot */}
