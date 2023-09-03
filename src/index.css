@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.drawer-side a.active {
-    color: red;
+
+#navbar-active a.active{
+    background-color: transparent;
+    border-bottom: 2px solid  #FF007F;
 }

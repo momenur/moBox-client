@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import avater from '../../../assets/navbar/avater.avif'
 import { useContext } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
@@ -23,30 +23,30 @@ const Navbar = () => {
             .catch(error => console.log(error))
     }
     const navOptions = <>
-        <li><Link to="/">Home</Link></li>
+        <li><NavLink to="/">Home</NavLink></li>
         <li>
-            <Link to="/order">
+            <NavLink to="/order">
                 My Order
                 <div className="badge badge-secondary">+{order.length}</div>
-            </Link>
+            </NavLink>
         </li>
-        <li><Link to="dashboard/customerOrder">Admin Dashboard</Link></li>
+        <li><NavLink to="dashboard/customerOrder">Admin Dashboard</NavLink></li>
         {
             user ? <>
-                <li onClick={handleLogOut} className='text-rose-500 font-semibold'><Link>Sign Out</Link></li>
+                <button onClick={handleLogOut}>Sign Out</button>
             </> : <>
-                <li><Link to="register">Sign Up</Link></li>
-                <li><Link to="login">Sign In</Link></li>
+                <li><NavLink to="register"><button>Sign Up</button></NavLink></li>
+                <li><NavLink to="login"><button>Sign In</button></NavLink></li>
             </>
         }
     </>
     return (
-        <div className="">
-            <div className="navbar bg-black text-white fixed z-50 bg-opacity-50 max-w-screen-xl">
+        <div id='navbar-active'>
+            <div className="fixed z-50 max-w-screen-xl text-white bg-black bg-opacity-50 navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 bg-black rounded-md w-52 ">
                             {
@@ -54,10 +54,10 @@ const Navbar = () => {
                             }
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">MoiBoX</a>
+                    <a className="text-xl normal-case btn btn-ghost">MoiBoX</a>
                 </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                <div className="hidden navbar-center lg:flex">
+                    <ul className="px-1 menu menu-horizontal">
                         {
                             navOptions
                         }
