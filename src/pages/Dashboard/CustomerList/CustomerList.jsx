@@ -1,6 +1,6 @@
 import { FidgetSpinner } from "react-loader-spinner";
 import useUsers from "../../../hooks/useUsers";
-
+import { FaTrash } from 'react-icons/fa';
 const CustomerList = () => {
     const [usersDB, loading] = useUsers();
     if (loading) {
@@ -57,7 +57,7 @@ const CustomerList = () => {
                                     </td>
                                     <td className="font-semibold">{item.role}</td>
                                     <th>
-                                        <button className="text-2xl text-red-500 bg-transparent btn">X</button>
+                                        <button className="text-2xl text-red-500 bg-transparent btn"><FaTrash/></button>
                                     </th>
                                 </tr>
                         )

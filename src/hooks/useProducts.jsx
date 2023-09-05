@@ -4,7 +4,7 @@ const useProducts = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true)
     useEffect( () => {
-        fetch("http://localhost:5000/products")
+        fetch("https://mobox-server-momenurislam6-gmailcom.vercel.app/products")
         .then(res => res.json())
         .then(data => {
             setProducts(data)

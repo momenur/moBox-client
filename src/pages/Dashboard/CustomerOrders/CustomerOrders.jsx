@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { FidgetSpinner } from "react-loader-spinner";
-
+import { FaTrash } from 'react-icons/fa';
 const CustomerOrders = () => {
     const [cusOrter, setCusOrder] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch('http://localhost:5000/customerOrder')
+        fetch('https://mobox-server-momenurislam6-gmailcom.vercel.app/customerOrder')
             .then(res => res.json())
             .then(data => {
                 setCusOrder(data)
@@ -71,7 +71,7 @@ const CustomerOrders = () => {
                                 </td>
                                 <td className="font-semibold">${item.price}</td>
                                 <th>
-                                    <button className="text-2xl text-red-500 bg-transparent btn">X</button>
+                                    <button className="text-2xl text-red-500 bg-transparent btn"><FaTrash/></button>
                                 </th>
                             </tr>
                             )

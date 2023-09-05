@@ -7,7 +7,7 @@ const useOrders = () => {
     const { refetch, data: order = [] } = useQuery({
         queryKey: ['order', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/order?email=${user.email}`)
+            const res = await fetch(`https://mobox-server-momenurislam6-gmailcom.vercel.app/order?email=${user.email}`)
             // if (!response.ok) {
             //   throw new Error('Network response was not ok')
             // }

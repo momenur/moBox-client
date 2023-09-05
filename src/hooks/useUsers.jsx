@@ -5,7 +5,7 @@ const useUsers = () =>  {
     const [usersDB, setUsersDB] = useState([]);
     const [loading, setLoading] = useState(true)
     useEffect( () => {
-        fetch("http://localhost:5000/users")
+        fetch("https://mobox-server-momenurislam6-gmailcom.vercel.app/users")
         .then(res => res.json())
         .then(data => {
             setUsersDB(data)

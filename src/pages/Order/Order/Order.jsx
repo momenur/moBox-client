@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import useOrders from "../../../hooks/useOrders";
 import Title from "../../../components/Title";
-
+import { FaTrash } from 'react-icons/fa';
 const Order = () => {
     const [order, refetch] = useOrders();
     const handleDelete = item => {
@@ -16,7 +16,7 @@ const Order = () => {
           }).then((result) => {
             
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/order/${item._id}`, {
+                fetch(`https://mobox-server-momenurislam6-gmailcom.vercel.app/order/${item._id}`, {
                     method: 'DELETE'
                 })
                 .then(res => res.json())
@@ -64,7 +64,7 @@ const Order = () => {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
+                                                <div className="w-12 h-12 mask mask-squircle">
                                                     <img src={item.image} alt="Avatar Tailwind CSS Component" />
                                                 </div>
                                             </div>
@@ -77,7 +77,7 @@ const Order = () => {
                                     </td>
                                     <td className="font-semibold">${item.price}</td>
                                     <th>
-                                        <button onClick={()=> handleDelete(item)} className="btn bg-transparent text-red-500 text-2xl">X</button>
+                                        <button onClick={()=> handleDelete(item)} className="text-2xl text-red-500 bg-transparent btn"><FaTrash/></button>
                                     </th>
                                 </tr>
                             </>)
