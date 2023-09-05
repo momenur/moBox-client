@@ -30,9 +30,9 @@ const Navbar = () => {
                 <div className="badge badge-secondary">+{order.length}</div>
             </NavLink>
         </li>
-        <li><NavLink to="dashboard/customerOrder">Admin Dashboard</NavLink></li>
         {
             user ? <>
+                <li><NavLink to="dashboard/customerOrder">Admin Dashboard</NavLink></li>
                 <button onClick={handleLogOut}>Sign Out</button>
             </> : <>
                 <li><NavLink to="register"><button>Sign Up</button></NavLink></li>
